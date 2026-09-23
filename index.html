@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ton porridge personnalisé | Ridge</title>
+<meta name="description" content="Crée un porridge personnalisé selon ton objectif, tes besoins nutritionnels et tes goûts." />
+<meta property="og:title" content="Ton porridge personnalisé | Ridge" />
+<meta property="og:description" content="Quelques questions suffisent pour créer un porridge adapté à ton objectif, tes besoins nutritionnels et tes goûts." />
+<meta name="theme-color" content="#FAF6F0" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+<a class="skip-link" href="#main">Aller au contenu principal</a>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="#hero" class="logo">
+      <svg class="logo-mark" width="22" height="18" viewBox="0 0 32 24" fill="none" aria-hidden="true">
+        <path d="M1 22 L10 6 L15 14 L20 4 L31 22 Z" fill="currentColor" />
+        <circle cx="25" cy="5" r="2.4" fill="currentColor" opacity="0.55" />
+      </svg>
+      Ridge
+    </a>
+    <nav class="main-nav" aria-label="Navigation principale">
+      <a href="#how-it-works">Comment ça marche</a>
+      <a href="#why-us">Notre approche</a>
+    </nav>
+    <button class="btn btn-primary btn-sm" data-action="start-configurator">Créer mon porridge</button>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero hero-photo" id="hero">
+    <div class="hero-slideshow" id="hero-slideshow" aria-hidden="true"></div>
+    <div class="hero-scrim"></div>
+    <div class="container hero-photo-inner">
+      <div class="hero-copy">
+        <p class="eyebrow eyebrow-light">Nutrition personnalisée</p>
+        <h1>Ton petit-déjeuner.<br />Calculé pour toi.</h1>
+        <p class="hero-sub hero-sub-light">Quelques questions suffisent pour créer un porridge adapté à ton objectif, tes besoins nutritionnels et tes goûts.</p>
+        <div class="hero-actions">
+          <button class="btn btn-primary btn-lg" data-action="start-configurator">Créer mon porridge</button>
+          <button class="btn btn-ghost btn-lg btn-ghost-light" data-action="scroll-how">Comment ça marche ?</button>
+        </div>
+        <ul class="hero-tags hero-tags-light" aria-label="Points clés">
+          <li>Personnalisé</li>
+          <li>Nutritionnel</li>
+          <li>Gourmand</li>
+          <li>Simple</li>
+        </ul>
+      </div>
+    </div>
+    <button class="hero-slideshow-toggle" id="hero-slideshow-toggle" aria-label="Mettre en pause le diaporama" aria-pressed="false">⏸</button>
+    <div class="hero-slideshow-dots" id="hero-slideshow-dots" aria-hidden="true"></div>
+  </section>
+
+  <!-- ============ COMMENT ÇA MARCHE ============ -->
+  <section class="how-it-works" id="how-it-works">
+    <div class="container">
+      <p class="eyebrow center">Le processus</p>
+      <h2 class="section-title center">Comment ça marche</h2>
+      <div class="steps-grid">
+        <article class="step-card reveal">
+          <span class="step-number">01</span>
+          <h3>Ton profil</h3>
+          <p>Nous comprenons ton objectif.</p>
+        </article>
+        <article class="step-card reveal">
+          <span class="step-number">02</span>
+          <h3>Ton porridge</h3>
+          <p>Notre configurateur adapte les quantités.</p>
+        </article>
+        <article class="step-card reveal">
+          <span class="step-number">03</span>
+          <h3>Ta routine</h3>
+          <p>Tu reçois tes portions prêtes à préparer.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONFIANCE ============ -->
+  <section class="why-us" id="why-us">
+    <div class="container why-grid">
+      <div class="reveal">
+        <p class="eyebrow">Pourquoi nous faisons ça ?</p>
+        <h2 class="section-title">Une recette pensée pour ton profil, pas une recette générique.</h2>
+        <p class="why-text">Les besoins nutritionnels ne sont pas les mêmes pour tout le monde. Nous avons conçu ce configurateur pour transformer quelques informations simples en une recette adaptée à ton profil.</p>
+      </div>
+      <ul class="why-list reveal">
+        <li><strong>Ingrédients affichés clairement</strong><span>Chaque recette liste précisément ce qu'elle contient.</span></li>
+        <li><strong>Valeurs nutritionnelles</strong><span>Calories, macros et fibres calculées pour ta portion.</span></li>
+        <li><strong>Allergènes signalés</strong><span>Les ingrédients concernés sont filtrés selon tes contraintes.</span></li>
+        <li><strong>Origine des ingrédients</strong><span>Traçabilité en cours de finalisation — à venir.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ CONFIGURATEUR ============ -->
+  <section class="configurator" id="configurator">
+    <div class="container configurator-inner">
+
+      <!-- INTRO -->
+      <div class="config-panel intro-panel" data-view="intro">
+        <p class="eyebrow center">Le configurateur</p>
+        <h2 class="section-title center">Créons ton porridge, ensemble.</h2>
+        <p class="intro-sub">7 étapes rapides. Deux minutes suffisent.</p>
+        <button class="btn btn-primary btn-lg" data-action="begin-quiz">Commencer</button>
+      </div>
+
+      <!-- QUIZ WRAPPER -->
+      <div class="config-panel quiz-panel" data-view="quiz" hidden>
+        <div class="quiz-progress" role="status" aria-live="polite">
+          <div class="quiz-progress-top">
+            <span class="quiz-progress-label">Étape <span id="step-current">1</span> sur 7</span>
+            <span class="quiz-progress-message" id="step-encouragement"></span>
+          </div>
+          <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+        </div>
+
+        <div class="quiz-steps">
+
+          <!-- STEP 1 : PROFIL -->
+          <section class="quiz-step" data-step="1">
+            <h2 class="step-title">Commençons par toi.</h2>
+            <div class="field-group">
+              <span class="field-label">Sexe</span>
+              <div class="option-row" data-field="sex">
+                <button type="button" class="option-pill" data-value="homme">Homme</button>
+                <button type="button" class="option-pill" data-value="femme">Femme</button>
+              </div>
+            </div>
+            <div class="field-grid">
+              <label class="field-input">
+                <span class="field-label">Âge</span>
+                <input type="number" inputmode="numeric" name="age" min="14" max="90" placeholder="28" />
+              </label>
+              <label class="field-input">
+                <span class="field-label">Taille (cm)</span>
+                <input type="number" inputmode="numeric" name="height" min="120" max="230" placeholder="175" />
+              </label>
+              <label class="field-input">
+                <span class="field-label">Poids (kg)</span>
+                <input type="number" inputmode="numeric" name="weight" min="35" max="200" placeholder="70" />
+              </label>
+            </div>
+          </section>
+
+          <!-- STEP 2 : ACTIVITÉ -->
+          <section class="quiz-step" data-step="2">
+            <h2 class="step-title">À quoi ressemble une semaine normale pour toi ?</h2>
+            <div class="option-list" data-field="activityId" id="activity-options"></div>
+          </section>
+
+          <!-- STEP 3 : OBJECTIF -->
+          <section class="quiz-step" data-step="3">
+            <h2 class="step-title">Qu'est-ce que tu veux obtenir de ton petit-déjeuner ?</h2>
+            <div class="option-list" data-field="goalId" id="goal-options"></div>
+            <p class="field-note">À titre indicatif — pas de promesse de résultat.</p>
+          </section>
+
+          <!-- STEP 4 : NUTRITION -->
+          <section class="quiz-step" data-step="4">
+            <h2 class="step-title">Nous avons suffisamment d'informations pour commencer.</h2>
+            <div class="nutrition-summary" id="nutrition-summary">
+              <div class="nutrition-tile">
+                <span class="nutrition-value" id="target-calories">—</span>
+                <span class="nutrition-label">Calories recommandées</span>
+              </div>
+              <div class="nutrition-tile">
+                <span class="nutrition-value" id="target-protein">—</span>
+                <span class="nutrition-label">Protéines recommandées</span>
+              </div>
+              <div class="nutrition-tile">
+                <span class="nutrition-value" id="target-carbs">—</span>
+                <span class="nutrition-label">Glucides</span>
+              </div>
+              <div class="nutrition-tile">
+                <span class="nutrition-value" id="target-fat">—</span>
+                <span class="nutrition-label">Lipides</span>
+              </div>
+            </div>
+            <p class="field-note">Estimation indicative — les besoins réels peuvent varier selon la personne.</p>
+
+            <p class="adjust-intro">Tu peux ajuster ton porridge.</p>
+            <div class="slider-field">
+              <div class="slider-head">
+                <span class="field-label">Calories</span>
+                <output id="calorie-output">650 kcal</output>
+              </div>
+              <input type="range" id="calorie-slider" min="400" max="1000" step="10" value="650" aria-label="Calories souhaitées" />
+            </div>
+            <div class="slider-field">
+              <div class="slider-head">
+                <span class="field-label">Protéines</span>
+                <output id="protein-output">30 g</output>
+              </div>
+              <input type="range" id="protein-slider" min="15" max="60" step="1" value="30" aria-label="Protéines souhaitées" />
+            </div>
+          </section>
+
+          <!-- STEP 5 : GOÛTS -->
+          <section class="quiz-step" data-step="5">
+            <h2 class="step-title">Maintenant, faisons-le vraiment à ton goût.</h2>
+            <p class="field-note">Sélectionne un ou plusieurs goûts.</p>
+            <div class="flavor-grid" id="flavor-options"></div>
+            <div class="field-group texture-group">
+              <span class="field-label">Plutôt…</span>
+              <div class="option-row" id="texture-options" data-field="texture"></div>
+            </div>
+          </section>
+
+          <!-- STEP 6 : CONTRAINTES -->
+          <section class="quiz-step" data-step="6">
+            <h2 class="step-title">Y a-t-il quelque chose que tu souhaites éviter ?</h2>
+            <div class="constraint-grid" id="constraint-options"></div>
+            <p class="field-note">Nous filtrerons les ingrédients correspondants.</p>
+          </section>
+
+          <!-- STEP 7 : RÉSULTAT -->
+          <section class="quiz-step result-step" data-step="7">
+
+            <div class="loading-state" id="loading-state" hidden>
+              <div class="loading-spinner" aria-hidden="true"></div>
+              <p class="loading-text" id="loading-text">Analyse de ton profil…</p>
+            </div>
+
+            <div class="result-state" id="result-state" hidden>
+
+              <p class="eyebrow center">Ton porridge</p>
+              <h2 class="result-name" id="result-name">—</h2>
+              <div class="result-stars" aria-hidden="true">★★★★★</div>
+              <p class="result-tagline">Conçu pour ton profil</p>
+
+              <div class="result-bowl">
+                <div class="bowl bowl-result" id="result-bowl">
+                  <div class="bowl-content"></div>
+                </div>
+              </div>
+
+              <div class="macro-row" id="macro-row">
+                <div class="macro-tile main-macro">
+                  <span class="macro-value" id="macro-calories">0</span>
+                  <span class="macro-label">kcal</span>
+                </div>
+                <div class="macro-tile">
+                  <span class="macro-value" id="macro-protein">0g</span>
+                  <span class="macro-label">Protéines</span>
+                </div>
+                <div class="macro-tile">
+                  <span class="macro-value" id="macro-carbs">0g</span>
+                  <span class="macro-label">Glucides</span>
+                </div>
+                <div class="macro-tile">
+                  <span class="macro-value" id="macro-fat">0g</span>
+                  <span class="macro-label">Lipides</span>
+                </div>
+                <div class="macro-tile">
+                  <span class="macro-value" id="macro-fiber">0g</span>
+                  <span class="macro-label">Fibres</span>
+                </div>
+              </div>
+
+              <div class="result-block">
+                <h3>Ingrédients</h3>
+                <p class="field-note">Dosé portion par portion.</p>
+                <ul class="ingredient-list" id="ingredient-list"></ul>
+                <p class="field-note" id="cost-note"></p>
+              </div>
+
+              <div class="result-block">
+                <h3>Pourquoi cette recette ?</h3>
+                <div id="explanation-text" class="explanation-text"></div>
+              </div>
+
+              <div class="result-block">
+                <h3>Ton profil nutritionnel</h3>
+                <div class="score-overall">
+                  <span class="score-number" id="score-overall">0</span><span class="score-max">/100</span>
+                </div>
+                <p class="score-caption">Score pédagogique — pas un score médical.</p>
+                <div class="score-bars" id="score-bars"></div>
+                <p class="score-feedback" id="score-feedback"></p>
+              </div>
+
+              <div class="result-block">
+                <h3>Personnalise encore</h3>
+                <div class="tune-row">
+                  <button class="btn btn-tune" data-tune="gourmand">Rendre plus gourmand</button>
+                  <button class="btn btn-tune" data-tune="protein">Plus protéiné</button>
+                  <button class="btn btn-tune" data-tune="light">Plus léger</button>
+                  <button class="btn btn-tune" data-tune="calories">Plus calorique</button>
+                </div>
+              </div>
+
+              <!-- CHECKOUT -->
+              <div class="checkout-block" id="checkout">
+                <p class="eyebrow center">Commande</p>
+                <h3 class="section-title center">Ton porridge est prêt.</h3>
+
+                <div class="portion-grid" id="portion-options"></div>
+
+                <div class="plan-toggle" id="plan-options">
+                  <button type="button" class="plan-card" data-plan="oneshot">
+                    <span class="plan-name">Je veux tester</span>
+                    <span class="plan-desc">Achat unique</span>
+                  </button>
+                  <button type="button" class="plan-card plan-highlight" data-plan="subscription">
+                    <span class="plan-badge">Ma routine</span>
+                    <span class="plan-name">Abonnement</span>
+                    <span class="plan-desc">Économise 10 %</span>
+                  </button>
+                </div>
+
+                <ul class="plan-benefits">
+                  <li>✓ Livraison automatique</li>
+                  <li>✓ Modification de recette</li>
+                  <li>✓ Pause à tout moment</li>
+                  <li>✓ Résiliation à tout moment</li>
+                </ul>
+
+                <div class="price-summary" id="price-summary">
+                  <div class="price-row">
+                    <span>Prix par portion</span>
+                    <span id="price-per-portion">—</span>
+                  </div>
+                  <div class="price-row price-row-total">
+                    <span>Prix total</span>
+                    <span id="price-total">—</span>
+                  </div>
+                  <p class="price-savings" id="price-savings" hidden></p>
+                </div>
+
+                <div class="checkout-actions">
+                  <button class="btn btn-primary btn-lg btn-block" id="order-btn">Commander mon porridge</button>
+                  <button class="btn btn-outdoor btn-block" id="amazon-order-btn">🛒 Commander les ingrédients en ligne</button>
+                  <button class="btn btn-ghost btn-block" id="share-btn">Partager ma recette</button>
+                </div>
+                <p class="prototype-note">Prototype — aucune commande ni paiement réel n'est effectué.</p>
+              </div>
+
+            </div>
+          </section>
+
+        </div>
+
+        <div class="quiz-nav" id="quiz-nav">
+          <button class="btn btn-ghost" id="nav-back" data-action="prev-step">← Retour</button>
+          <button class="btn btn-primary" id="nav-continue" data-action="next-step">Continuer →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <span class="logo">
+      <svg class="logo-mark" width="22" height="18" viewBox="0 0 32 24" fill="none" aria-hidden="true">
+        <path d="M1 22 L10 6 L15 14 L20 4 L31 22 Z" fill="currentColor" />
+        <circle cx="25" cy="5" r="2.4" fill="currentColor" opacity="0.55" />
+      </svg>
+      Ridge
+    </span>
+    <p>Prototype de configurateur nutritionnel — données de démonstration.</p>
+  </div>
+</footer>
+
+<!-- ============ STICKY MOBILE BAR ============ -->
+<div class="sticky-bar" id="sticky-bar" hidden>
+  <div class="sticky-bar-inner" id="sticky-bar-quiz">
+    <button class="btn btn-ghost btn-sm" id="sticky-back" aria-label="Étape précédente">←</button>
+    <div class="sticky-progress-text" id="sticky-step-text">Étape 1 sur 7</div>
+    <button class="btn btn-primary" id="sticky-continue">Continuer →</button>
+  </div>
+  <div class="sticky-bar-inner" id="sticky-bar-result" hidden>
+    <div class="sticky-progress-text" id="sticky-result-text">650 kcal · 30 portions</div>
+    <div class="sticky-result-actions">
+      <button class="btn btn-ghost btn-sm" id="sticky-modify">Modifier</button>
+      <button class="btn btn-primary btn-sm" id="sticky-order">Commander</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ TOAST / CHECKOUT CONFIRMATION ============ -->
+<div class="modal-overlay" id="modal-overlay" hidden>
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <button class="modal-close" id="modal-close" aria-label="Fermer">✕</button>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<script src="js/data/ingredients.js"></script>
+<script src="js/data/meta.js"></script>
+<script src="js/calculator/calculator.js"></script>
+<script src="js/analytics.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
