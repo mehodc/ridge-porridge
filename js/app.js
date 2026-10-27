@@ -41,6 +41,15 @@
   ];
   const HERO_SLIDE_DURATION = 6000;
 
+  const AMAZON_DURATIONS = [
+    { days: 7, label: "1 semaine" },
+    { days: 14, label: "2 semaines" },
+    { days: 30, label: "1 mois" },
+    { days: 90, label: "3 mois" }
+  ];
+  // Majoration indicative pour une préférence bio (estimation, pas un prix réel).
+  const BIO_PRICE_MULTIPLIER = 1.3;
+
   // -----------------------------------------------------------
   // State
   // -----------------------------------------------------------
@@ -63,7 +72,9 @@
     sliderTouched: { calories: false, protein: false },
     result: null,
     portionCount: 30,
-    plan: "subscription"
+    plan: "subscription",
+    amazonDays: 30,
+    amazonBio: false
   };
 
   // -----------------------------------------------------------
@@ -624,45 +635,97 @@
     dom.amazonOrderBtn.addEventListener("click", openAmazonOrderModal);
   }
 
-  function formatQuantity(gramsPerPortion) {
-    const total = gramsPerPortion * state.portionCount;
-    return total >= 1000 ? (total / 1000).toFixed(1).replace(".", ",") + " kg" : Math.round(total) + " g";
+  function formatGrams(totalGrams) {
+    return totalGrams >= 1000 ? (totalGrams / 1000).toFixed(1).replace(".", ",") + " kg" : Math.round(totalGrams) + " g";
   }
 
-  function amazonSearchUrl(ingredientName) {
-    return "https://www.amazon.fr/s?k=" + encodeURIComponent(ingredientName);
+  function amazonSearchUrl(ingredientName, bio) {
+    const query = bio ? ingredientName + " bio" : ingredientName;
+    return "https://www.amazon.fr/s?k=" + encodeURIComponent(query);
   }
 
-  function openAmazonOrderModal() {
+  function renderAmazonRows() {
     if (!state.result) return;
-    trackEvent("amazon_order_opened", { portions: state.portionCount });
     const items = state.result.recipe.items;
+    const bio = state.amazonBio;
+    let totalCost = 0;
 
     const rows = items
       .map((it) => {
-        const url = amazonSearchUrl(it.ingredient.name);
+        const totalGrams = it.grams * state.amazonDays;
+        const pricePerKg = it.ingredient.costPer100g * 10 * (bio ? BIO_PRICE_MULTIPLIER : 1);
+        const lineCost = (totalGrams / 1000) * pricePerKg;
+        totalCost += lineCost;
+        const url = amazonSearchUrl(it.ingredient.name, bio);
         return `
         <li class="amazon-ing-row">
           <span class="ing-icon" aria-hidden="true">${it.ingredient.icon}</span>
-          <span class="ing-name">${it.ingredient.name}<br><span class="ing-qty">${formatQuantity(it.grams)} au total</span></span>
+          <span class="ing-name">${it.ingredient.name}${bio ? " <em>(bio)</em>" : ""}<br>
+            <span class="ing-qty">${formatGrams(totalGrams)} · ≈ ${fmtEuro(pricePerKg)}/kg · ≈ ${fmtEuro(lineCost)}</span>
+          </span>
           <a class="btn btn-outdoor btn-sm amazon-link" href="${url}" target="_blank" rel="noopener noreferrer" data-ingredient="${it.ingredient.name}">Amazon →</a>
         </li>`;
       })
       .join("");
 
-    dom.modalBody.innerHTML = `
-      <div class="modal-body">
-        <h3>🛒 Commander les ingrédients</h3>
-        <p>Quantités calculées pour ${state.portionCount} portions. Chaque bouton ouvre une recherche Amazon pour l'ingrédient — choisis la marque ou le format que tu préfères, puis ajoute-le à ton panier.</p>
-        <ul class="amazon-ing-list">${rows}</ul>
-        <p style="font-size:12.5px;color:var(--text-faint)">Prototype — ces liens pointent vers des résultats de recherche Amazon réels ; nous n'avons pas (encore) de panier pré-rempli automatique.</p>
-      </div>`;
-    openModal();
+    dom.modalBody.querySelector("#amazon-ing-list").innerHTML = rows;
+    dom.modalBody.querySelector("#amazon-days-label").textContent = state.amazonDays + " jours";
+    dom.modalBody.querySelector("#amazon-total").textContent = `Coût indicatif total : ≈ ${fmtEuro(totalCost)}`;
 
     $$(".amazon-link", dom.modalBody).forEach((link) => {
       link.addEventListener("click", () => {
-        trackEvent("amazon_item_clicked", { ingredient: link.dataset.ingredient });
+        trackEvent("amazon_item_clicked", { ingredient: link.dataset.ingredient, days: state.amazonDays, bio: state.amazonBio });
       });
+    });
+  }
+
+  function openAmazonOrderModal() {
+    if (!state.result) return;
+    trackEvent("amazon_order_opened", { days: state.amazonDays, bio: state.amazonBio });
+
+    const durationPills = AMAZON_DURATIONS.map(
+      (d) => `<button type="button" class="amazon-duration-pill${d.days === state.amazonDays ? " active" : ""}" data-days="${d.days}">${d.label}</button>`
+    ).join("");
+
+    dom.modalBody.innerHTML = `
+      <div class="modal-body">
+        <h3>🛒 Commander les ingrédients</h3>
+        <p>Choisis une durée et une préférence bio — les quantités, le prix au kg et le coût total se recalculent automatiquement. Chaque bouton ouvre une recherche Amazon pour l'ingrédient : choisis la marque ou le format que tu préfères, puis ajoute-le à ton panier.</p>
+
+        <div class="amazon-controls">
+          <div>
+            <span class="field-label">Durée</span>
+            <div class="amazon-duration-pills" id="amazon-duration-pills">${durationPills}</div>
+          </div>
+          <label class="amazon-bio-toggle">
+            <input type="checkbox" id="amazon-bio-toggle" ${state.amazonBio ? "checked" : ""} />
+            <span>🌱 Privilégier le bio</span>
+          </label>
+        </div>
+
+        <p class="field-note">Pour <strong id="amazon-days-label">${state.amazonDays} jours</strong> (1 bol / jour). Prix au kg estimés à partir de nos données de démonstration — à comparer aux prix réels affichés sur Amazon.</p>
+
+        <ul class="amazon-ing-list" id="amazon-ing-list"></ul>
+        <p class="amazon-total" id="amazon-total"></p>
+
+        <p style="font-size:12.5px;color:var(--text-faint)">Prototype — ces liens pointent vers des résultats de recherche Amazon réels ; nous n'avons pas (encore) de panier pré-rempli automatique, et les prix affichés ici sont indicatifs, pas les prix Amazon en direct.</p>
+      </div>`;
+    openModal();
+    renderAmazonRows();
+
+    dom.modalBody.querySelector("#amazon-duration-pills").addEventListener("click", (e) => {
+      const pill = e.target.closest(".amazon-duration-pill");
+      if (!pill) return;
+      state.amazonDays = Number(pill.dataset.days);
+      $$(".amazon-duration-pill", dom.modalBody).forEach((b) => b.classList.toggle("active", b === pill));
+      renderAmazonRows();
+      trackEvent("amazon_duration_changed", { days: state.amazonDays });
+    });
+
+    dom.modalBody.querySelector("#amazon-bio-toggle").addEventListener("change", (e) => {
+      state.amazonBio = e.target.checked;
+      renderAmazonRows();
+      trackEvent("amazon_bio_toggled", { bio: state.amazonBio });
     });
   }
 

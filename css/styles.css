@@ -491,6 +491,18 @@ input[type="range"]::-moz-range-thumb {
 .ing-name { flex: 1; font-weight: 700; font-size: 14.5px; color: var(--forest-dark); }
 .ing-grams { font-weight: 800; color: var(--rust-dark); font-size: 14px; }
 
+.amazon-controls { margin-top: 18px; display: flex; flex-direction: column; gap: 16px; }
+.amazon-duration-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.amazon-duration-pill {
+  border: 1.5px solid var(--border); background: var(--surface); border-radius: var(--radius-full);
+  padding: 8px 14px; font-size: 13px; font-weight: 700; color: var(--forest); cursor: pointer;
+}
+.amazon-duration-pill.active { border-color: var(--rust); background: var(--rust-light); color: var(--forest-dark); }
+.amazon-duration-pill:focus-visible { outline: 3px solid var(--rust); outline-offset: 2px; }
+.amazon-bio-toggle { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; font-size: 14px; color: var(--forest-dark); cursor: pointer; }
+.amazon-bio-toggle input { width: 18px; height: 18px; accent-color: var(--rust); cursor: pointer; }
+.amazon-total { margin-top: 14px; font-weight: 800; font-size: 15px; color: var(--forest-dark); text-align: right; }
+
 .amazon-ing-list { display: flex; flex-direction: column; gap: 10px; margin: 16px 0; }
 .amazon-ing-row {
   display: flex; align-items: center; gap: 12px;
