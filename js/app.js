@@ -1,5 +1,5 @@
 /**
- * Ridge — configurateur de porridge personnalisé.
+ * Ridge Nutrition — configurateur de porridge personnalisé.
  * Contrôleur principal : état, navigation, rendu, calculs.
  */
 (function () {
